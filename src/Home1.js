@@ -1,42 +1,96 @@
-import React, { useContext, useState } from 'react'
-import menu from './menu.json';
-import Single from './SingleProduct';
-import { Cart } from './Context';
-import './App.css'
-import { useNavigate } from 'react-router-dom';
+import SingleProduct1 from './SingleProduct';
+import { CartState } from './Context';
 import logo1 from './logo1.jpg'
+import './Styles.css'
+import { FaShoppingCart } from "react-icons/fa";
+import { AiFillDelete } from "react-icons/ai";
+import {
+  Badge,
+  Button,
+  Container,
+  Dropdown,
+  Nav,
+  Navbar,
+} from "react-bootstrap";
+import { Link } from "react-router-dom";
 
-function Header() {
-    const {cart}=useContext(Cart);
-    const navigate=useNavigate();
-    function clicklogut() {
-        navigate("/cart");
-    }
-    return (
-      <header className="header">
-        <div className="logo-container">
-          <img src={logo1} alt='YourPhoto' className="logo"></img>
-          <h1>Pick Your Menu</h1>
-        </div>
-        <button className="right-corner-button" onClick={clicklogut}>CART({cart.length})</button>
-      </header>
-    );
-  }
-const Home = () => {
-  const productsArray=menu;
-  const [products]=useState(productsArray);
-  console.log(useContext(Cart));
+export const Header = () => {
+  const {
+    state: { cart },
+    dispatch,
+  } = CartState();
+
+  return (
+    <div>
+    <Navbar bg="dark" variant="dark" style={{ height: 80 }}>
+      <Container>
+        <Navbar.Brand>
+          <h1>PICK YOUR MENU</h1>
+        </Navbar.Brand>
+        
+        <Nav>
+          <Dropdown alignRight>
+            <Dropdown.Toggle variant="success">
+              <FaShoppingCart color="white" fontSize="25px" />
+              <Badge>{cart.length}</Badge>
+            </Dropdown.Toggle>
+
+            <Dropdown.Menu style={{ minWidth: 370 }}>
+              {cart.length > 0 ? (
+                <>
+                  {cart.map((prod) => (
+                    <span className="cartitem" key={prod.id}>
+                      <img
+                        src={prod.image}
+                        className="cartItemImg"
+                        alt={prod.name}
+                      />
+                      <div className="cartItemDetail">
+                        <span>{prod.name}</span>
+                        <span>₹ {prod.price.split(".")[0]}</span>
+                      </div>
+                      <AiFillDelete
+                        fontSize="20px"
+                        style={{ cursor: "pointer" }}
+                        onClick={() =>
+                          dispatch({
+                            type: "remove",
+                            payload: prod,
+                          })
+                        }
+                      />
+                    </span>
+                  ))}
+                  <Link to="/cart">
+                    <Button style={{ width: "95%", margin: "0 10px" }}>
+                      Go To Cart
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <span style={{ padding: 10 }}>Cart is Empty!</span>
+              )}
+            </Dropdown.Menu>
+          </Dropdown>
+        </Nav>
+      </Container>
+    </Navbar>
+    </div>
+  );
+};
+const Home1 = () => {
+  const {state:{products}}=CartState();
   return (
     <div>
       <Header/>
       <div className='productContainer'>
-        {products.map((prod)=>(
-          <Single prod={prod} key={prod._id.$oid}/>
-        ))}
+      {products.map((prod)=>{
+            return <SingleProduct1 prod={prod}  key={prod._id.$oid}/>
+        })}
       </div>
 
     </div>
   )
 }
 
-export default Home
+export default Home1

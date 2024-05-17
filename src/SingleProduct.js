@@ -1,32 +1,46 @@
-import { useContext } from "react";
-import { Cart } from "./Context";
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import { Button, Card } from "react-bootstrap"
+import { CartState } from "./Context"
 
-const SingleProduct = ({prod}) => {
-  const {cart, setCart} = useContext(Cart);
+const SingleProduct1 = ({prod}) => {
 
+  const {
+    state:{cart},
+    dispatch,
+  }=CartState();
   return (
-    <div>
-      <div className='row' style={{marginTop: '4%', marginLeft: '1.5%', marginRight: '1.5%'}}>
-        <div className='col-md-3' style={{marginBottom: '3%'}}>
-          <Card style={{ width: '18rem', height: '80vh' }}>
-            <Card.Img variant="top" src={prod.image} />
-            <Card.Body>
-              <Card.Title>{prod.name}</Card.Title>
-              <Card.Text>{prod.description}</Card.Text>
-              <Card.Text>{'$'+prod.price}</Card.Text>
-              {cart.includes(prod) ? (
-                <Button onClick={() => {setCart(cart.filter((c) => c.name !== prod.name))}}>Remove from Cart</Button>
-              ) : (
-                <Button onClick={() => {setCart([...cart, prod])}}>Add to Cart</Button>
-              )}
-            </Card.Body>
-          </Card>
-        </div>
-      </div>
-    </div>
-  );
-};
+    <div className="products">
+      <Card>
+      <Card.Img variant="top" src={prod.image} alt={prod.name} />
+      <Card.Body>
+          <Card.Title>{prod.name}</Card.Title>
+          <Card.Subtitle style={{ paddingBottom: 10 }}>
+          <span>₹ {prod.price}</span>
+            
+          </Card.Subtitle>
+          {
+            cart.some(p=>p._id.$oid===prod._id.$oid)?(
+              <Button onClick={()=>{
+                dispatch({
+                  type:'remove',
+                  payload:prod,
+                })
 
-export default SingleProduct;
+              }}  variant="danger">REMOVE FROM CART</Button>
+            ):(
+              <Button onClick={()=>{
+                dispatch({
+                  type:'add',
+                  payload:prod,
+                })
+              }}>ADD TO CART</Button>
+            )
+          }
+        </Card.Body>
+        </Card>
+        
+
+    </div>
+  )
+}
+
+export default SingleProduct1

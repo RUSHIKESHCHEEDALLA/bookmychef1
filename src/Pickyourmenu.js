@@ -4,8 +4,6 @@ import Button from 'react-bootstrap/Button';
 import './App.css'
 import { useNavigate } from 'react-router-dom';
 import logo1 from './logo1.jpg'
-import { useContext } from 'react';
-import { Cart } from './Context';
 function Header() {
   const navigate=useNavigate();
   function clicklogut() {
@@ -18,11 +16,10 @@ function Header() {
         <h1>Pick Your Menu</h1>
       </div>
       <button className="right-corner-button" onClick={clicklogut}>CART</button>
-</header>
+    </header>
   );
 }
 const Pickyourmenu=()=>{
-  const {cart,setCart}=useContext(Cart)
   let cardArr=menu1;
   return (
     <div>
@@ -37,14 +34,6 @@ const Pickyourmenu=()=>{
                 <Card.Text>{eachCard.description}</Card.Text>
                 <Card.Text>{'$'+eachCard.price}</Card.Text>
                 <Button >Add to Cart</Button>
-                <div>
-                {cart.includes(eachCard)?(
-                <button onClick={()=>{setCart(cart.filter((c)=>c.name!==eachCard.name))}}>Remove from Cart</button>
-                ):(
-                <button onClick={()=>{setCart([...cart,eachCard])}}>Add to Cart</button>
-                )
-                }
-                </div>
             </Card.Body>
             </Card>
             </div>

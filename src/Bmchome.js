@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
 import logo1 from './logo1.jpg';
-import chef1 from './all.jpg';
-import bookLogo from './all.jpg';
-import bartenders from './all.jpg';
-import caterboy from './all.jpg';
-import about1Logo from './all.jpg';
-import howPic from './all.jpg';
-import green from './green.mp4';
+import chef1 from './chef1.jpg';
+import bookLogo from './book.logo.jpg';
+import bartenders from './bartendersss.jpg';
+import caterboy from './cateringboy.jpg';
+import about1Logo from './about1.logo.jpg';
+import howPic from './how.png';
+import green from './chefmaking.mp4';
 import { useNavigate } from 'react-router-dom'
 import  Adds from './adds'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -21,8 +21,8 @@ function Header() {
         <div className="logo-container">
           <img src={logo1} alt='YourPhoto' className="logo"></img>
           <h1>Hello username</h1>
+          <button className="right-corner-button" onClick={clicklogut}>Logout</button>
         </div>
-        <button className="right-corner-button" onClick={clicklogut}>Logout</button>
   </header>
     );
   }
@@ -50,13 +50,14 @@ function App () {
             <Header/>
             <Nav/>
             <Adds/>
+            <br/>
             <section id="home" className="home">
             <video autoPlay loop muted className="background-video">
                 <source src={green} type="video/mp4" />
                 Your browser does not support the video tag.</video>
                 <center>
                     <div className='content'>
-                        <h1>Selct a service:</h1><br/><br/>
+                        <h1 >Selct a service:</h1><br/><br/>
                         <button onClick={clicklogut2}>Pick Your Menu</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <button onClick={clicklogut1}>Explore Menu</button><br/><br/>
                         <button onClick={clicklogut1}>Premium Chef</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -109,7 +110,7 @@ function App () {
                     </div>
                 </div>
             </section>
-            <section id="contact-us" className="home">
+            <section id="contact-us" className="contact-us">
                 <div className="container">
                     <div className="form-container">
                         <form>
@@ -133,7 +134,7 @@ function App () {
                             <label htmlFor="location">Location:</label>
                             <input type="text" id="location" name="location" required /><br />
 
-                            <input type="submit" value="Submit" className="submit-button" />
+                            <input type="submit" value="Submit" className="submit-button" />&nbsp;&nbsp;
                             <input type="submit" value="Login" className="submit-button" />
                         </form>
                     </div>
@@ -142,17 +143,24 @@ function App () {
                     </div>
                 </div>
             </section>
-            <section id="testimonials" className="container">
-                <h2>Testimonials</h2>
-                <div className="testimonial">
-                    <p>"Great service! The chefs are amazing."</p>
-                    <p>- John Doe</p>
+            <br/>
+            <center><h1>Testimonials</h1></center>
+            <section id="testimonials" class="container">
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"Exceptional service! The culinary expertise is unmatched."</p>
+                        <p class="testimonial-author">- Swathi Sowmya</p>
+                    </div>
                 </div>
-                <div className="testimonial">
-                    <p>"BookMyChef made hosting dinner parties a breeze."</p>
-                    <p>- Jane Smith</p>
+                &nbsp;&nbsp;&nbsp;
+                <div class="testimonial">
+                    <div class="testimonial-content">
+                        <p class="testimonial-text">"Booking with BookMyChef has streamlined my dinner parties."</p>
+                        <p class="testimonial-author">- Rakesh</p>
+                    </div>
                 </div>
             </section>
+
             <footer>
                 <p>&copy;BookMyChef. All rights reserved.</p>
             </footer>
